@@ -33,11 +33,11 @@ public class LogInterceptor {
 	
 	@Around("addMethod() || delMethod()")
 	public void around(ProceedingJoinPoint pjp) throws Throwable{
-		System.out.println(" before XXXing method ");
+		System.out.println(" BEFORE \" "+pjp.getSignature()+ " \" ");
 		
 		pjp.proceed();
 	
-		System.out.println("after XXXing method ");
+		System.out.println("AFTER \" "+pjp.getSignature() + " \" ");
 		
 	}
 }

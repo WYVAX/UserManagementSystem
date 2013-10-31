@@ -50,4 +50,29 @@ public class UserService {
 	public User getFirst(){
 		return userDao.getFirst();
 	}
+	
+	@Transactional
+	public boolean delete(int i){
+		User u = new User();
+		u.setId(i);
+		if(exists(u)){
+			userDao.delete(u);
+			return true;
+		}
+		else return false;
+	}
+	
+	@Transactional
+	public boolean delete(User u){
+		if(exists(u)){
+			userDao.delete(u);
+			return true;
+		}
+		else return false;
+	}
+	
+	@Transactional
+	public boolean exists(User u){
+		return (u.getId() != 0); 
+	}
 }
