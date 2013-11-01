@@ -5,46 +5,18 @@
 
 <struts>
 
-	<!-- The package element provides a mechanism by which to group related 
-		Struts 2 components, such as actions and results, into logical units. In 
-		this case, we will group them based upon their relationship as that pertain 
-		to the same chapter in the book. A more natural grouping for real world applications 
-		would be by more functional aspects. -->
 	<package name="registration" namespace="/registration" extends="struts-default">
 
-		<interceptors>
-			<interceptor name="security"
-				class="com.peng.action.interceptor.SecurityInterceptor" />
-
-			<interceptor-stack name="securityStack">
-				<interceptor-ref name="defaultStack" />
-				<interceptor-ref name="security" />
-			</interceptor-stack>
-
-		</interceptors>
+<!-- 		<default-interceptor-ref name="securityStack" /> -->
 
 		<default-action-ref name="regPage" />
-
-		<!-- <action name="regProcess" class="com.peng.action.registration.RegProcessAction"> 
-			<result name="success">/reg/registrationSuccess.jsp</result> <result name="fail">/reg/registrationFail.jsp</result> 
-			</action> <action name="regPage" class="com.peng.action.registration.RegPageAction"> 
-			<result name="success">/reg/registration.jsp</result> </action> <action name="*" 
-			class="com.peng.action.registration.{1}Action"> <result>/registration/{1}.jsp</result> 
-			</action> The HelloWorld action will create a custom greeting from the submitted 
-			form data. The HelloWorld action also declares a result to use for displaying 
-			the customized greeting, a jsp page in this case. <action name="HelloWorld" 
-			class="manning.chapterTwo.HelloWorld"> <result name="SUCCESS">/chapterTwo/HelloWorld.jsp</result> 
-			</action> -->
 		<global-results>
 			<result name="securityerror">/securityerror.jsp</result>
 			<result name="error">/error.jsp</result>
 		</global-results>
-		<!-- 
-		<action name="deleteUser" class="com.peng.action.registration.DeleteUserAction">
-			<interceptor-ref name="securityStack" />
-			<result name="success">/home.jsp</result>
-			<result name="input">/reg/login.jsp</result>
-		</action> -->
+		<!-- <action name="deleteUser" class="com.peng.action.registration.DeleteUserAction"> 
+			<interceptor-ref name="securityStack" /> <result name="success">/home.jsp</result> 
+			<result name="input">/reg/login.jsp</result> </action> -->
 	</package>
 
 </struts>

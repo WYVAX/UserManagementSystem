@@ -14,7 +14,7 @@
 <body>
 Oops! Some error occur! Please login: 
 <br> 
-<a href="<%=basePath %>reg/login.jsp" >Login Page</a>
+<a href="<%=basePath %>registration/login.jsp" >Login Page</a>
 <s:debug></s:debug>
 </body>
 </html>

@@ -4,21 +4,24 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.struts2.config.Result;
-import org.apache.struts2.config.Results;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
 import com.peng.service.UserService;
 
 
-@Results(value = { @Result(name="input", value="/reg/login.jsp"), 
-		@Result(name="success", value="/home.jsp" )
+@Results(value = { @Result(name="input", location="/registration/login.jsp"), 
+		@Result(name="success", location="/home.jsp" )
 		})
 
 public class LoginAction extends ActionSupport implements SessionAware{
 	
+	@Action("login")
 	@Override
 	public String execute(){
 	
@@ -31,6 +34,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			else return "input";
 		}
 		else return "input";
+	}
+	
+	@Action("logout")
+	public String logout(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if (!session.isEmpty()) {
+			User user = (User) session.get("user");
+			
+			session.remove("user");
+		}
+		return "input";
 	}
 	
 	

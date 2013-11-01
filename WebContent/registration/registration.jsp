@@ -10,7 +10,7 @@
 </head>
 <body>
 Registration Page. 
-		<s:form action="regProcess" namespace="registration">
+		<s:form action="regProcess" namespace="/registration">
 		<s:textfield name="username" label="input user name"/>
     	<s:textfield name="firstName" label="input first name"/>
     	<s:textfield name="middleName" label="input middle name"/>

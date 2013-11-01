@@ -90,11 +90,18 @@ public class UserDevModeTest {
 	
 	@Test
 	public void addAdmin() {
+		schemaTest();
 		User user = new User();
 		Address addr = new Address();
+		
 		Role r = new Role();
 		r.setRoleName("ADMIN");
 		r.addUser(user);
+		
+		Role r2 = new Role();
+		r2.setRoleName("USER");
+		r2.addUser(user);
+		
 		addr.setCountry("US");
 		addr.setRoomNumber(14);
 		addr.setState("MI");
@@ -105,6 +112,7 @@ public class UserDevModeTest {
 		user.setLastName("Zang");
 		user.setPassword("asdf");
 		user.addRole(r);
+		user.addRole(r2);
 		
 		if(userService.get("admin") == null){
 			userService.add(user);

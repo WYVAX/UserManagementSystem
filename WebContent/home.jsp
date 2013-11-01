@@ -15,7 +15,10 @@ go to registration page:
 <a href='<s:url action="regPage" namespace="/registration" /> '> Registration page</a>
 <br>
 Delete User:
-<a href='<s:url action="deleteUser" />'>delete user </a>
+<a href='<s:url action="deleteUser" namespace="/security" />'>delete user </a>
+
+Logout: 
+<a href='<s:url action="logout" namespace="/registration" /> '> Logout</a>
 <s:debug></s:debug>
 </body>
 </html>

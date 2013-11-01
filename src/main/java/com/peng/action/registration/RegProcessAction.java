@@ -2,8 +2,9 @@ package com.peng.action.registration;
 
 import javax.annotation.Resource;
 
-import org.apache.struts2.config.Result;
-import org.apache.struts2.config.Results;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,9 +13,9 @@ import com.peng.model.Address;
 import com.peng.model.User;
 import com.peng.service.UserService;
 
-@Results(value = { @Result(name = "fail", value = "/reg/registrationFail.jsp"),
-		@Result(name = "success", value = "/reg/registrationSuccess.jsp"),
-		@Result(name = "input", value = "/reg/registration.jsp") })
+@Results(value = { @Result(name = "fail", location= "/registration/registrationFail.jsp"),
+		@Result(name = "success", location = "/registration/registrationSuccess.jsp"),
+		@Result(name = "input", location = "/registration/registration.jsp") })
 public class RegProcessAction extends ActionSupport {
 
 	// private static ClassPathXmlApplicationContext ctx = new
@@ -32,6 +33,7 @@ public class RegProcessAction extends ActionSupport {
 		this.userService = userService;
 	}
 
+	@Action("regProcess")
 	@Override
 	public String execute() {
 		if (password.equals(password2)) {

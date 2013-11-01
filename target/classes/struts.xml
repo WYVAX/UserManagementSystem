@@ -5,44 +5,40 @@
 
 <struts>
 
-   <!--
-   			For the purposes of the book, we will leave devMode set to true.  This
-   			allows several things to occur including provision of debugging level information
-   			on error pages as well as reloading of various resources with each request.
-   --> 
-   <constant name="struts.devMode" value="true" />
-   
-   
-   
- 		<!-- 
-			You can define packages directly in this file, but its probably best
-		   	to modularize the configuration files with separate xml files for each
-		   	package.  Ulitmately its all the same because the include element, seen
-		   	below, pulls the included configuration document directly in to the 
-		   	primary document.  The only thing to consider is that a referenced
-		   	element must have been declared above the referring element.         
-		-->
-		
-		<!-- 
-				This is the menu action that will allow the reader to see the different
-				samples actions from the different chapters in a menu format.  We declare
-				it here, in the root namespace, because its not really related to any of the
-				specific examples or chapters, its just a kind of utility for the whole 
-				application.
-		-->
-		
-		    <include file="com/peng/action/registration/registration.xml"/>
-		
-		<package name="default" namespace="/" extends="struts-default"> 
-			
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.convention.default.parent.package"
+		value="default" />
 
-			 
-			<default-action-ref name="redirect" />
-			
-	
-			<action name="redirect">
-				<result type="redirectAction">registration/regPage</result>
-			</action>
-		</package>	
+	<include file="com/peng/action/registration/registration.xml" />
+	<include file="com/peng/action/security/security.xml" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="security"
+				class="com.peng.action.interceptor.SecurityInterceptor" />
+
+			<interceptor-stack name="securityStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="security" />
+			</interceptor-stack>
+
+		</interceptors>
+
+
+
+		<default-action-ref name="redirect" />
+
+		<global-results>
+			<result name="securityerror">/securityerror.jsp</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+
+		<action name="redirect">
+			<result type="redirectAction">
+				<param name="actionName">login</param>
+				<param name="namespace">/registration</param>
+			</result>
+		</action>
+	</package>
 
 </struts>

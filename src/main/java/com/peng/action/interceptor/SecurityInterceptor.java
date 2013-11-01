@@ -16,25 +16,41 @@ public class SecurityInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		Object action = invocation.getAction();
-		System.out.println(" ****************  my interceptor ");
-		return "securityerror";
-/*		if (action instanceof LoginRequired) {
+		
+		System.out.println("########  security interceptor is called ##############");
+		if (action instanceof LoginRequired) {
 			if (!session.isEmpty()) {
 				User user = (User) session.get("user");
 				if (user != null) {
+					
 					Set<Role> roles = user.getRoles();
 					Set<String> required = ((LoginRequired) action)
 							.getRequiredRoles();
-					for (String r : required) {
-						if (!roles.contains(r))
-							return "securityerror";
-					}
+					
+					for(Role r : roles){
+						System.out.println(" ****************  user not null, roles: "+ r.getRoleName());
+					}		
+
+					if(hasRole(roles, required))
+						return invocation.invoke();
+					else return "securityerror";
+						
 				}
 				else return "securityerror";
 			}
 			else return "securityerror";
 		}
 		return invocation.invoke();
-*/	}
+	}
+	
+	private boolean hasRole(Set<Role> roles, Set<String> required){
+		for (String r : required) {
+			for(Role ro : roles){
+			if (ro.getRoleName().equals(r))
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
