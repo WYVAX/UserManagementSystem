@@ -9,10 +9,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Registration Success</title>
+<title>Error Page</title>
 </head>
 <body>
-Registration Success! Please login: 
+Oops! Some error occur! Please login: 
 <br> 
 <a href="<%=basePath %>reg/login.jsp" >Login Page</a>
 <s:debug></s:debug>

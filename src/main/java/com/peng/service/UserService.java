@@ -42,8 +42,8 @@ public class UserService {
 	}
 	
 	@Transactional
-	public User get(int id){
-		return userDao.get(id);
+	public User get(String username){
+		return userDao.get(username);
 	}
 	
 	@Transactional
@@ -52,11 +52,10 @@ public class UserService {
 	}
 	
 	@Transactional
-	public boolean delete(int i){
-		User u = new User();
-		u.setId(i);
-		if(exists(u)){
-			userDao.delete(u);
+	public boolean delete(String username){
+		User user = get(username);
+		if(exists(user)){
+			userDao.delete(user);
 			return true;
 		}
 		else return false;
@@ -73,6 +72,6 @@ public class UserService {
 	
 	@Transactional
 	public boolean exists(User u){
-		return (u.getId() != 0); 
+		return (u.getUsername()!= null); 
 	}
 }

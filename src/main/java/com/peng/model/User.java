@@ -6,30 +6,56 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
-	private int id;
 	private  Set<Address> address = new HashSet<Address>();
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String password;
-
+	private String email;
+	private String username;
+	private Set<Role> roles = new HashSet<Role>();
+	
 	@Id
-	@GeneratedValue
-	public int getId() {
-		return id;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	@ManyToMany(mappedBy="users", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	public Set<Role> getRoles() {
+		return roles;
 	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void addRole(Role r){
+		this.roles.add(r);
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	public Set<Address> getAddress() {
@@ -79,7 +105,7 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString(){
-		return "User id: " + id + " username: " + firstName + " " + middleName + " " + lastName + " ";
+		return "User name: " + firstName + " " + middleName + " " + lastName + " ,  username: " + username;
 	}
 
 }

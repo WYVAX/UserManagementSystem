@@ -11,6 +11,9 @@
    			on error pages as well as reloading of various resources with each request.
    --> 
    <constant name="struts.devMode" value="true" />
+   
+   
+   
  		<!-- 
 			You can define packages directly in this file, but its probably best
 		   	to modularize the configuration files with separate xml files for each
@@ -31,13 +34,15 @@
 		    <include file="com/peng/action/registration/registration.xml"/>
 		
 		<package name="default" namespace="/" extends="struts-default"> 
+			
+
+			 
 			<default-action-ref name="redirect" />
 			
+	
 			<action name="redirect">
 				<result type="redirectAction">registration/regPage</result>
 			</action>
 		</package>	
-		
-  
 
 </struts>

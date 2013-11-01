@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<% String path = request.getContextPath(); 
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +
-	path + "/"; %>
-	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Registration Success</title>
+<title>User Home page</title>
 </head>
 <body>
-Registration Success! Please login: 
-<br> 
-<a href="<%=basePath %>reg/login.jsp" >Login Page</a>
+Welcome, <s:property value="username"/>
+<br>
+go to registration page: 
+
+<a href='<s:url action="regPage" namespace="/registration" /> '> Registration page</a>
+<br>
+Delete User:
+<a href='<s:url action="deleteUser" />'>delete user </a>
 <s:debug></s:debug>
 </body>
 </html>

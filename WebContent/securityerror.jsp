@@ -12,7 +12,7 @@
 <title>Registration Success</title>
 </head>
 <body>
-Registration Success! Please login: 
+User is not authenticated/login or access denied! Please login: 
 <br> 
 <a href="<%=basePath %>reg/login.jsp" >Login Page</a>
 <s:debug></s:debug>

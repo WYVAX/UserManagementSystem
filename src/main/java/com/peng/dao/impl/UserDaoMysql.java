@@ -44,9 +44,9 @@ public class UserDaoMysql implements UserDao{
 	}
 
 	@Override
-	public User get(int id) {
+	public User get(String username) {
 		Session s = sf.getCurrentSession();
-		User u = (User) s.get(User.class, id);
+		User u = (User) s.get(User.class, username);
 		return u;
 	}
 	
