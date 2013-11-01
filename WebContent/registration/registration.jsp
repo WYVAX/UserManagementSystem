@@ -10,12 +10,15 @@
 </head>
 <body>
 Registration Page. 
-		<s:form action="regProcess">
+		<s:form action="regProcess" namespace="/registration">
+		<s:textfield name="username" label="input user name"/>
     	<s:textfield name="firstName" label="input first name"/>
     	<s:textfield name="middleName" label="input middle name"/>
     	<s:textfield name="lastName" label="input last name"/>
+    	<s:textfield name="email" label="input email"/>
     	<s:password name="password" label="input password"/>
     	<s:password name="password2" label="re-enter your password"/>
+    	
     	<br>
     	<p> Please enter your address:
     	<br>
@@ -26,6 +29,6 @@ Registration Page.
     	<s:textfield name="country" label=" country"/>
     	<s:submit/>
 		</s:form>
-
+<s:debug></s:debug>
 </body>
 </html>

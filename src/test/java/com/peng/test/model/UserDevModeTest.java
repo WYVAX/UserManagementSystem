@@ -15,9 +15,9 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import com.peng.model.*;
 import com.peng.service.UserService;
 
-public class UserTest {
+public class UserDevModeTest {
 
-	private static ApplicationContext ctx = new FileSystemXmlApplicationContext("/src/test/java/applicationContext.xml");
+	ApplicationContext ctx = new FileSystemXmlApplicationContext("/WebContent/WEB-INF/applicationContext.xml");
 	private UserService userService = (UserService)ctx.getBean("userService");
 	private LocalSessionFactoryBean sf = (LocalSessionFactoryBean) ctx.getBean("&sf");
 	private static int index=0;
@@ -53,12 +53,6 @@ public class UserTest {
 
 	}
 	
-	@Test
-	public void exportDevSchema(){
-		ApplicationContext ctx2 = new FileSystemXmlApplicationContext("/WebContent/WEB-INF/applicationContext.xml");
-		LocalSessionFactoryBean sf2 = (LocalSessionFactoryBean) ctx2.getBean("&sf");
-		new SchemaExport(sf2.getConfiguration()).create(true, true);
-	}
 	
 	@Test
 	public void userAddTest() throws Exception{
@@ -92,5 +86,39 @@ public class UserTest {
 		userService.delete(user.getUsername());
 		user=userService.getFirst();
 		}
+	}
+	
+	@Test
+	public void addAdmin() {
+		schemaTest();
+		User user = new User();
+		Address addr = new Address();
+		
+		Role r = new Role();
+		r.setRoleName("ADMIN");
+		r.addUser(user);
+		
+		Role r2 = new Role();
+		r2.setRoleName("USER");
+		r2.addUser(user);
+		
+		addr.setCountry("US");
+		addr.setRoomNumber(14);
+		addr.setState("MI");
+		addr.setStreetAddr("5000 S Hagadorn rd.");
+		user.addAddress(addr);
+		user.setUsername("admin");
+		user.setFirstName("Peng");
+		user.setLastName("Zang");
+		user.setPassword("asdf");
+		user.addRole(r);
+		user.addRole(r2);
+		
+		if(userService.get("admin") == null){
+			userService.add(user);
+			
+		}
+		else
+			System.out.println("***************** user admin already exists!*************" + userService.get("admin") );
 	}
 }
