@@ -3,6 +3,10 @@
         drop 
         foreign key FKBB979BF4D4F0CB6D
 
+    alter table credit_card 
+        drop 
+        foreign key FKEDE47C96D4F0CB6D
+
     alter table user_role 
         drop 
         foreign key FK143BF46A33D412D2
@@ -12,6 +16,8 @@
         foreign key FK143BF46AF5FDD722
 
     drop table if exists address
+
+    drop table if exists credit_card
 
     drop table if exists mylog
 
@@ -29,19 +35,27 @@
         streetAddr2 varchar(255),
         user_username varchar(255) not null,
         primary key (user_username)
-    )
+    ) type=InnoDB
+
+    create table credit_card (
+        cardNumber integer not null,
+        month integer,
+        year integer not null,
+        user_username varchar(255),
+        primary key (cardNumber)
+    ) type=InnoDB
 
     create table mylog (
         id integer not null auto_increment,
         info varchar(255),
         primary key (id)
-    )
+    ) type=InnoDB
 
     create table role (
         id integer not null auto_increment,
         roleName varchar(255),
         primary key (id)
-    )
+    ) type=InnoDB
 
     create table user (
         username varchar(255) not null,
@@ -51,17 +65,23 @@
         middleName varchar(255),
         password varchar(255),
         primary key (username)
-    )
+    ) type=InnoDB
 
     create table user_role (
         role_id integer not null,
         user_name varchar(255) not null,
         primary key (role_id, user_name)
-    )
+    ) type=InnoDB
 
     alter table address 
         add index FKBB979BF4D4F0CB6D (user_username), 
         add constraint FKBB979BF4D4F0CB6D 
+        foreign key (user_username) 
+        references user (username)
+
+    alter table credit_card 
+        add index FKEDE47C96D4F0CB6D (user_username), 
+        add constraint FKEDE47C96D4F0CB6D 
         foreign key (user_username) 
         references user (username)
 

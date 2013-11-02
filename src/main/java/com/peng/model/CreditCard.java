@@ -3,6 +3,9 @@ package com.peng.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +18,17 @@ public class CreditCard {
 	private int year;
 	private Month month;
 	private int CardNumber;
+	private User user;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public int getYear() {
 		return year;
 	}
@@ -31,7 +44,8 @@ public class CreditCard {
 	public void setMonth(Month month) {
 		this.month = month;
 	}
-
+	
+	@Id
 	public int getCardNumber() {
 		return CardNumber;
 	}

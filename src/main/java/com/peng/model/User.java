@@ -24,7 +24,17 @@ public class User implements Serializable {
 	private String email;
 	private String username;
 	private Set<Role> roles = new HashSet<Role>();
+	private Set<CreditCard> cards = new HashSet<CreditCard>();
 	
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	public Set<CreditCard> getCards() {
+		return cards;
+	}
+
+	public void setCards(Set<CreditCard> cards) {
+		this.cards = cards;
+	}
+
 	@Id
 	public String getUsername() {
 		return username;

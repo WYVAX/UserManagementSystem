@@ -50,7 +50,6 @@ public class UserDevModeTest {
 		SchemaExport se = new SchemaExport(sf.getConfiguration());
 		se.setFormat(true).setOutputFile("schema.sql");
 		se.create(true, true);
-
 	}
 	
 	
