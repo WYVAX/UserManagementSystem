@@ -8,7 +8,9 @@
 <title>User Home page</title>
 </head>
 <body>
-Welcome, <s:property value="username"/>
+<h1>User Home</h1>
+<h2>Welcome, <s:property value="%{#session.user.fullName()}"/></h2>
+
 <br>
 go to registration page: 
 
@@ -19,6 +21,20 @@ Delete User:
 
 Logout: 
 <a href='<s:url action="logout" namespace="/registration" /> '> Logout</a>
-<s:debug></s:debug>
+
+<br>
+Has role admin? 
+<s:property value='%{#session.user.hasRole("ADMIN")}'/>
+<br>
+
+<s:if test='%{#session.user.hasRole("ADMIN")}'>
+<a href='<s:url action="adminDashboard" namespace="/security"/>'>Administration</a>
+</s:if>
+<s:else>
+
+</s:else>
+
+ 
+ <s:debug></s:debug>
 </body>
 </html>

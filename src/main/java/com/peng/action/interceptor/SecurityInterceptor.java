@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.peng.model.Role;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.LoginRequired;
 
 public class SecurityInterceptor extends AbstractInterceptor {
 

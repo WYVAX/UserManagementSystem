@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.LoginRequired;
 import com.peng.service.UserService;
 
 @Results(value = {
@@ -41,7 +41,8 @@ public class DeleteUserAction extends ActionSupport implements SessionAware,
 	@Override
 	public String execute() {
 		System.out.println("************************  required roles: "
-				+ requiredRoles);
+				+ requiredRoles +  " session is: " + this.getSession());
+		
 		return "success";
 	}
 

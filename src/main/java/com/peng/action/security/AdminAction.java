@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.LoginRequired;
 import com.peng.service.UserService;
 
 @Results(value = {
-		@Result(name = "input", location = "/registration/login.jsp"),
+		@Result(name = "logout", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/admin/dashboard.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
 @InterceptorRef("security")
@@ -35,7 +35,7 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		requiredRoles.add("ADMIN");
 	}
 
-	@Action(value = "adminPage")
+	@Action(value = "adminDashboard")
 	// , interceptorRefs = @InterceptorRef("security"))
 	@Override
 	public String execute() {
