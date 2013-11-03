@@ -14,7 +14,8 @@
 <br>
 Delete User:
 <a href='<s:url action="deleteUser" namespace="/security" />'>delete user </a>
-
+<p> Edit users: 
+<a href='<s:url action="userList" namespace="/security" />'>edit users </a>
 <div>
 Go back to user home:
 <a href='<s:url action="userHome" namespace="/registration" />'>UserHome </a>

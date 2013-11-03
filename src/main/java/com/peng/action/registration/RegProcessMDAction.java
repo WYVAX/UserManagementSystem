@@ -1,10 +1,14 @@
 package com.peng.action.registration;
 
+
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.interceptor.SessionAware;
 import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,7 +22,8 @@ import com.peng.service.UserService;
 @Results(value = { @Result(name = "fail", location= "/registration/registrationFail.jsp"),
 		@Result(name = "success", location = "/registration/registrationSuccess.jsp"),
 		@Result(name = "input", location = "/registration/registration.jsp") })
-public class RegProcessMDAction extends ActionSupport implements ModelDriven<Address> {
+public class RegProcessMDAction 
+	extends ActionSupport implements ModelDriven<Address>, SessionAware {
 
 
 	@Action("regProcessMD")
@@ -69,5 +74,11 @@ public class RegProcessMDAction extends ActionSupport implements ModelDriven<Add
 		if(!addr.getUser().getPassword().equals(getPassword2())){
 			addFieldError(password2, "passwords are not match");
 		}
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		// TODO Auto-generated method stub
+		
 	}
 }

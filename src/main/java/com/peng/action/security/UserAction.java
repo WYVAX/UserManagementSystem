@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.DefaultInterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.util.logging.Logger;
 import com.peng.model.User;
 import com.peng.action.security.utils.LoginRequired;
 import com.peng.action.security.utils.RequiredRoles;
@@ -26,17 +29,35 @@ import com.peng.service.UserService;
 		@Result(name = "success", location = "/home.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp"),
 		@Result(name = "error", location = "/error.jsp")})
-//alreay defined in package-info.java, this is NOT needed: @InterceptorRef("security")
-public class DeleteUserAction extends ActionSupport implements SessionAware,
+public class UserAction extends ActionSupport implements  ModelDriven, SessionAware,
 		LoginRequired {
 
 	private UserService userService;
 	private RequiredRoles requiredRoles;
+	private User editUser;
+	private Set allUsers;
+	private User saveUser = new User();
+	
+	public Set getAllUsers() {
+		return allUsers;
+	}
+
+	public void setAllUsers(Set allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	public User getEditUser() {
+		return editUser;
+	}
+
+	public void setEditUser(User editUser) {
+		this.editUser = editUser;
+	}
 
 	@Action(value = "deleteUser")
-	// not need :  interceptorRefs = @InterceptorRef("security"))
 	@Override
 	public String execute() {
+		
 		System.out.println("************************  required roles: "
 				+ requiredRoles +  " session is: " + this.getSession());
 		Map<String, Object> session = ActionContext.getContext().getSession();
@@ -44,6 +65,39 @@ public class DeleteUserAction extends ActionSupport implements SessionAware,
 			return "success";
 		else
 			return "error";
+	}
+
+	@Action(value="userList", 
+			results={@Result(name="success", location="/admin/userList.jsp")})
+	public String userList(){
+		allUsers = userService.getAll();
+		return SUCCESS;
+	}
+
+	@Action(value="editUser", 
+			results={@Result(name="success", location="/user/edit.jsp")})
+	public String edit(){
+		String user_id=
+			 ServletActionContext.getRequest().getParameter("user_id");
+		
+		this.editUser = userService.get(user_id);
+		System.out.println(user_id);
+		return SUCCESS;
+	}
+
+	@Action(value="saveUser", 
+			results={@Result(name="success", location="/admin/dashboard.jsp")})
+	public String save(){
+		System.out.println("&&&&&&&&&&&&" + saveUser);
+		return SUCCESS;
+	}
+	
+	public User getSaveUser() {
+		return saveUser;
+	}
+
+	public void setSaveUser(User saveUser) {
+		this.saveUser = saveUser;
 	}
 
 	public UserService getUserService() {
@@ -77,6 +131,11 @@ public class DeleteUserAction extends ActionSupport implements SessionAware,
 		return this.requiredRoles;
 	}
 
+	@Override
+	public Object getModel() {
+		// TODO Auto-generated method stub
+		return saveUser;
+	}
 
 
 }

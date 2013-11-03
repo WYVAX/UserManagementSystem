@@ -1,5 +1,7 @@
 package com.peng.service;
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -73,5 +75,10 @@ public class UserService {
 	@Transactional
 	public boolean exists(User u){
 		return (u.getUsername()!= null); 
+	}
+	
+	@Transactional
+	public Set getAll(){
+		return userDao.getAll();
 	}
 }

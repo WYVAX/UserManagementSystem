@@ -30,10 +30,10 @@ public class SecurityInterceptor extends AbstractInterceptor {
 					if(required.isEmpty())
 						return invocation.invoke();
 					
-					for(Role r : roles){
+/*					for(Role r : roles){
 						System.out.println(" ****************  user not null, roles: "+ r.getRoleName());
 					}		
-
+*/
 					if(hasRole(roles, required))
 						return invocation.invoke();
 					else return "securityerror";

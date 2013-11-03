@@ -32,26 +32,26 @@
         streetAddr2 varchar(255),
         user_username varchar(255),
         primary key (id)
-    )
+    ) type=InnoDB
 
     create table credit_card (
         cardNumber integer not null,
         month integer,
         year integer not null,
         primary key (cardNumber)
-    )
+    ) type=InnoDB
 
     create table mylog (
         id integer not null auto_increment,
         info varchar(255),
         primary key (id)
-    )
+    ) type=InnoDB
 
     create table role (
         id integer not null auto_increment,
         roleName varchar(255),
         primary key (id)
-    )
+    ) type=InnoDB
 
     create table user (
         username varchar(255) not null,
@@ -61,13 +61,13 @@
         middleName varchar(255),
         password varchar(255),
         primary key (username)
-    )
+    ) type=InnoDB
 
     create table user_role (
         role_id integer not null,
         user_name varchar(255) not null,
         primary key (role_id, user_name)
-    )
+    ) type=InnoDB
 
     alter table address 
         add index FKBB979BF4D4F0CB6D (user_username), 

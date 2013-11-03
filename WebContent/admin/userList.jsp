@@ -9,23 +9,25 @@
 </head>
 <body>
 	<div>
-		<table border="1">
+		<table>
 			<tr>
-				<th>All Users</th>
 				<th>username</th>
 				<th>first name</th>
 				<th>middle name</th>
 				<th>last name</th>
 				<th>email</th>
+				<th>Operations</th>
 			</tr>
-			<s:iterator value="#session.user.address" var="addr" status="stat">
+			<s:iterator value="allUsers" var="user" status="stat">
 				<tr>
-					<th>Address <s:property value="#stat.count" /></th>
-					<td><s:property value="#addr.roomNumber" /></td>
-					<td><s:property value="#addr.streetAddr" /></td>
-					<td><s:property value="#addr.streetAddr2" /></td>
-					<td><s:property value="#addr.state" /></td>
-					<td><s:property value="#addr.country" /></td>
+					<td><s:property value="#user.username" /></td>
+					<td><s:property value="#user.firstName" /></td>
+					<td><s:property value="#user.middleName" /></td>
+					<td><s:property value="#user.lastName" /></td>
+					<td><s:property value="#user.email" /></td>
+					<td><a href='<s:url action="editUser" namespace="/security">
+							<s:param name="user_id" value="#user.username"/>
+						</s:url>'>edit</a> </td>
 				</tr>
 			</s:iterator>
 		</table>
