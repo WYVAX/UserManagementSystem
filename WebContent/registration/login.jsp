@@ -18,6 +18,10 @@
 		<s:password name="password" label="input password"/>
 		<s:submit></s:submit>
 	</s:form>
+<br>
+Or register
+<a href='<s:url action="regPageMD" namespace="/registration"/>'><font color="red">HERE</font></a>
+
 <s:debug/>
 </body>
 </html>

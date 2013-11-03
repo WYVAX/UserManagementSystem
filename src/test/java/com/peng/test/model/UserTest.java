@@ -1,5 +1,7 @@
 package com.peng.test.model;
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -91,6 +93,18 @@ public class UserTest {
 		
 		userService.delete(user.getUsername());
 		user=userService.getFirst();
+		}
+	}
+	
+	@Test
+	public void getAllTest() throws Exception{
+		schemaTest();
+		userAddTest();
+		userAddTest();
+		
+		Set<User> users= userService.getAll();
+		for(User u : users){
+			System.out.println(u);
 		}
 	}
 }

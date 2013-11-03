@@ -1,5 +1,9 @@
 package com.peng.dao.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
@@ -58,5 +62,15 @@ public class UserDaoMysql implements UserDao{
 		User u = (User)query.uniqueResult();
 		return u;
 	}
-
+	
+	@Override
+	public Set<User> getAll(){
+		Session s = sf.getCurrentSession();
+		Query query = s.createQuery("from  User as user order by user.id");
+		
+		List listusers =  query.list();
+		Set<User> users = new HashSet<User>(listusers);
+		return users;
+		
+	}
 }

@@ -15,11 +15,12 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.utils.LoginRequired;
+import com.peng.action.security.utils.RequiredRoles;
 import com.peng.service.UserService;
 
 @Results(value = {
-		@Result(name = "input", location = "/registration/login.jsp"),
+		@Result(name = "logout", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/admin/dashboard.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
 @InterceptorRef("security")
@@ -27,16 +28,9 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		LoginRequired {
 
 	private UserService userService;
-	private static Set<String> requiredRoles;
+	private RequiredRoles requiredRoles;
 
-	static {
-		requiredRoles = new HashSet<String>();
-		requiredRoles.add("USER");
-		requiredRoles.add("ADMIN");
-	}
-
-	@Action(value = "adminPage")
-	// , interceptorRefs = @InterceptorRef("security"))
+	@Action(value = "adminDashboard")
 	@Override
 	public String execute() {
 		System.out.println("************************  required roles: "
@@ -64,14 +58,16 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		this.session = session;
 	}
 
+	@Resource(name="adminRequired")
 	@Override
-	public void setRequiredRoles(Set<String> roles) {
-		this.requiredRoles = roles;
+	public void setRequiredRoles(RequiredRoles roles) {
+		this.requiredRoles = roles;		
 	}
 
 	@Override
-	public Set<String> getRequiredRoles() {
+	public RequiredRoles getRequiredRoles() {
 		return this.requiredRoles;
 	}
+
 
 }

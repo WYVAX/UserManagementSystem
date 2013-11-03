@@ -57,7 +57,7 @@ public class User implements Serializable {
 
 
 
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	public Set<Address> getAddress() {
 		return address;
 	}
@@ -105,7 +105,27 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString(){
-		return "User name: " + firstName + " " + middleName + " " + lastName + " ,  username: " + username;
+		return "User name: " + firstName + " " + 
+				(middleName==null? "": middleName) + " " + lastName + " ,  username: " + username;
+	}
+	
+	public String fullName(){
+		return firstName + " " + 
+				(middleName==null? "": middleName) + " " + lastName ;
+	}
+	
+	public boolean hasRole(String role){
+		for(Role r : this.roles ){
+			if(r.getRoleName().equals(role))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean amIadmin() {
+		if(hasRole("ADMIN"))
+			return true;
+		else return false;
 	}
 
 }

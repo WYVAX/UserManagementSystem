@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.DefaultInterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -16,28 +15,23 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.utils.LoginRequired;
+import com.peng.action.security.utils.RequiredRoles;
 import com.peng.service.UserService;
 
 @Results(value = {
-		@Result(name = "input", location = "/registration/login.jsp"),
-		@Result(name = "success", location = "/home.jsp"),
+		@Result(name = "logout", location = "/registration/login.jsp"),
+		@Result(name = "success", location = "/user/address.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
-//alreay defined in package-info.java, this is NOT needed: @InterceptorRef("security")
-public class DeleteUserAction extends ActionSupport implements SessionAware,
+@InterceptorRef("security")
+public class AddressAction extends ActionSupport implements SessionAware,
 		LoginRequired {
 
 	private UserService userService;
-	private static Set<String> requiredRoles;
+	private RequiredRoles requiredRoles;
 
-	static {
-		requiredRoles = new HashSet<String>();
-		requiredRoles.add("USER");
-		requiredRoles.add("ADMIN");
-	}
-
-	@Action(value = "deleteUser")
-	// not need :  interceptorRefs = @InterceptorRef("security"))
+	@Action(value = "addresses")
+	// , interceptorRefs = @InterceptorRef("security"))
 	@Override
 	public String execute() {
 		System.out.println("************************  required roles: "
@@ -64,14 +58,16 @@ public class DeleteUserAction extends ActionSupport implements SessionAware,
 	public void setSession(Map session) {
 		this.session = session;
 	}
-
+	
+	@Resource(name="userRequired")
 	@Override
-	public void setRequiredRoles(Set<String> roles) {
+	public void setRequiredRoles(RequiredRoles roles) {
 		this.requiredRoles = roles;
 	}
+	
 
 	@Override
-	public Set<String> getRequiredRoles() {
+	public RequiredRoles getRequiredRoles() {
 		return this.requiredRoles;
 	}
 

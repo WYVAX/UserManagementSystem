@@ -24,7 +24,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	@Action("login")
 	@Override
 	public String execute(){
-	
+			
 		if(username!=null && password!=null){
 			User u = userService.get(username);
 			if(u!=null && u.getPassword().equals(password)){
@@ -47,6 +47,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		return "input";
 	}
 	
+	@Action("userHome")
+	public String home(){
+		if(session.get("user") != null)
+			return "success";
+		else return "input";
+	}
 	
 	private UserService userService;
 

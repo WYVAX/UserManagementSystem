@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,10 +18,27 @@ import javax.persistence.Table;
 public class Address implements Serializable {
 
 	private User user;
-
+	private int id;
+	private String streetAddr;
+	private String streetAddr2;
+	private String state;
+	private String country;
+	private int roomNumber;
 	@Id
-	@ManyToOne
-	@PrimaryKeyJoinColumn
+	@GeneratedValue
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn
 	public User getUser() {
 		return user;
 	}
@@ -30,7 +48,7 @@ public class Address implements Serializable {
 		this.user = user;
 	}
 
-	private int roomNumber;
+	
 
 	public int getRoomNumber() {
 		return roomNumber;
@@ -39,11 +57,6 @@ public class Address implements Serializable {
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-
-	private String streetAddr;
-	private String streetAddr2;
-	private String state;
-	private String country;
 
 	public String getStreetAddr() {
 		return streetAddr;

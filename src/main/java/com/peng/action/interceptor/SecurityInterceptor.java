@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.peng.model.Role;
 import com.peng.model.User;
-import com.peng.security.LoginRequired;
+import com.peng.action.security.utils.LoginRequired;
 
 public class SecurityInterceptor extends AbstractInterceptor {
 
@@ -25,12 +25,15 @@ public class SecurityInterceptor extends AbstractInterceptor {
 					
 					Set<Role> roles = user.getRoles();
 					Set<String> required = ((LoginRequired) action)
-							.getRequiredRoles();
+							.getRequiredRoles().getRequiredRoles();
 					
-					for(Role r : roles){
+					if(required.isEmpty())
+						return invocation.invoke();
+					
+/*					for(Role r : roles){
 						System.out.println(" ****************  user not null, roles: "+ r.getRoleName());
 					}		
-
+*/
 					if(hasRole(roles, required))
 						return invocation.invoke();
 					else return "securityerror";

@@ -12,9 +12,19 @@
 <title>Error Page</title>
 </head>
 <body>
-Oops! Some error occur! Please login: 
+<font color="red">Oops! Some error occur! Please login:</font> 
 <br> 
 <a href="<%=basePath %>registration/login.jsp" >Login Page</a>
+<div>
+Or back to user home: 
+<s:if test='%{#session.user.roles.isEmpty()}'>
+<a href='<s:url action="userHome" namespace="/registration"/>'>UserHome</a>
+</s:if>
+<s:else>
+<a href='<s:url action="login" namespace="/registration"/>'>Login Page</a>
+</s:else>
+</div>
+
 <s:debug></s:debug>
 </body>
 </html>
