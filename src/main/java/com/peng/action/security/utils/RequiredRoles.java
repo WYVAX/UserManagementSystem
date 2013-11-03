@@ -1,11 +1,8 @@
-package com.peng.action.security;
+package com.peng.action.security.utils;
 
 import java.util.Set;
 
-import com.peng.model.Role;
-
-public interface LoginRequired {
-	
+public interface RequiredRoles {
 	public void setRequiredRoles(Set<String> roles);
 	public Set<String> getRequiredRoles();
 }

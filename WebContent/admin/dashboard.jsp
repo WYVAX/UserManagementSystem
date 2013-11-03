@@ -17,7 +17,7 @@ Delete User:
 
 <div>
 Go back to user home:
-<a href='<s:url action="userHome" namespace="/registration" />'>delete user </a>
+<a href='<s:url action="userHome" namespace="/registration" />'>UserHome </a>
 </div>
 <br>
 Logout: 

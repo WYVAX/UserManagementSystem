@@ -12,18 +12,17 @@
 <title>Registration Success</title>
 </head>
 <body>
-User is not authenticated/login or access denied! Please login: 
+<font color="red">User is not authenticated/login or access denied! Please login:</font> 
 <br> 
 <a href='<s:url action="login" namespace="/registration" /> ' >Login Page</a>
 
 <div>
 Or back to user home: 
 <s:if test='%{#session.user.roles.isEmpty()}'>
-<a href='<s:url action="userHome" namespace="/registration"/>'>UserHome</a>
-
+<a href='<s:url action="login" namespace="/registration"/>'>Login</a>
 </s:if>
 <s:else>
-<a href='<s:url action="login" namespace="/registration"/>'>Login</a>
+<a href='<s:url action="userHome" namespace="/registration"/>'>UserHome</a>
 </s:else>
 
 </div>

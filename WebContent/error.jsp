@@ -12,7 +12,7 @@
 <title>Error Page</title>
 </head>
 <body>
-Oops! Some error occur! Please login: 
+<font color="red">Oops! Some error occur! Please login:</font> 
 <br> 
 <a href="<%=basePath %>registration/login.jsp" >Login Page</a>
 <div>

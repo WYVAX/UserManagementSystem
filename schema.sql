@@ -13,6 +13,8 @@
 
     drop table if exists address
 
+    drop table if exists credit_card
+
     drop table if exists mylog
 
     drop table if exists role
@@ -22,13 +24,21 @@
     drop table if exists user_role
 
     create table address (
+        id integer not null auto_increment,
         country varchar(255),
         roomNumber integer not null,
         state varchar(255),
         streetAddr varchar(255),
         streetAddr2 varchar(255),
-        user_username varchar(255) not null,
-        primary key (user_username)
+        user_username varchar(255),
+        primary key (id)
+    )
+
+    create table credit_card (
+        cardNumber integer not null,
+        month integer,
+        year integer not null,
+        primary key (cardNumber)
     )
 
     create table mylog (

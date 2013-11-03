@@ -3,6 +3,7 @@ package com.peng.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -31,7 +32,7 @@ public class CreditCard {
 	public void setMonth(Month month) {
 		this.month = month;
 	}
-
+	@Id
 	public int getCardNumber() {
 		return CardNumber;
 	}

@@ -62,6 +62,7 @@ public class UserDevModeTest {
 		addr.setRoomNumber(14);
 		addr.setState("MI");
 		addr.setStreetAddr("5000 S Hagadorn rd.");
+		addr.setUser(user);
 		user.addAddress(addr);
 		user.setUsername("pzang" + index++);
 		user.setFirstName("Peng");
@@ -89,8 +90,9 @@ public class UserDevModeTest {
 	}
 	
 	@Test
-	public void addAdmin() {
+	public void addAdmin() throws Exception {
 		schemaTest();
+		userAddTest();
 		User user = new User();
 		Address addr = new Address();
 		

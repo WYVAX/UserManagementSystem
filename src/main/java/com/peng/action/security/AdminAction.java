@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.peng.model.User;
-import com.peng.action.security.LoginRequired;
+import com.peng.action.security.utils.LoginRequired;
+import com.peng.action.security.utils.RequiredRoles;
 import com.peng.service.UserService;
 
 @Results(value = {
@@ -27,16 +28,9 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		LoginRequired {
 
 	private UserService userService;
-	private static Set<String> requiredRoles;
-
-	static {
-		requiredRoles = new HashSet<String>();
-		requiredRoles.add("USER");
-		requiredRoles.add("ADMIN");
-	}
+	private RequiredRoles requiredRoles;
 
 	@Action(value = "adminDashboard")
-	// , interceptorRefs = @InterceptorRef("security"))
 	@Override
 	public String execute() {
 		System.out.println("************************  required roles: "
@@ -64,14 +58,16 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		this.session = session;
 	}
 
+	@Resource(name="adminRequired")
 	@Override
-	public void setRequiredRoles(Set<String> roles) {
-		this.requiredRoles = roles;
+	public void setRequiredRoles(RequiredRoles roles) {
+		this.requiredRoles = roles;		
 	}
 
 	@Override
-	public Set<String> getRequiredRoles() {
+	public RequiredRoles getRequiredRoles() {
 		return this.requiredRoles;
 	}
+
 
 }
