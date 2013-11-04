@@ -28,16 +28,24 @@ import com.peng.service.UserService;
 		@Result(name = "input", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/home.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp"),
-		@Result(name = "error", location = "/error.jsp")})
-public class UserAction extends ActionSupport implements  ModelDriven, SessionAware,
+		@Result(name = "error", location = "/error.jsp") })
+public class UserAction extends ActionSupport implements SessionAware,
 		LoginRequired {
 
 	private UserService userService;
 	private RequiredRoles requiredRoles;
 	private User editUser;
 	private Set allUsers;
-	private User saveUser = new User();
-	
+	private User updateUser;
+
+	public User getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(User updateUser) {
+		this.updateUser = updateUser;
+	}
+
 	public Set getAllUsers() {
 		return allUsers;
 	}
@@ -57,48 +65,38 @@ public class UserAction extends ActionSupport implements  ModelDriven, SessionAw
 	@Action(value = "deleteUser")
 	@Override
 	public String execute() {
-		
+
 		System.out.println("************************  required roles: "
-				+ requiredRoles +  " session is: " + this.getSession());
+				+ requiredRoles + " session is: " + this.getSession());
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(userService.delete((User)session.get("user")))
+		if (userService.delete((User) session.get("user")))
 			return "success";
 		else
 			return "error";
 	}
 
-	@Action(value="userList", 
-			results={@Result(name="success", location="/admin/userList.jsp")})
-	public String userList(){
+	@Action(value = "userList", results = { @Result(name = "success", location = "/admin/userList.jsp") })
+	public String userList() {
 		allUsers = userService.getAll();
 		return SUCCESS;
 	}
 
-	@Action(value="editUser", 
-			results={@Result(name="success", location="/user/edit.jsp")})
-	public String edit(){
-		String user_id=
-			 ServletActionContext.getRequest().getParameter("user_id");
-		
+	@Action(value = "editUser", results = { @Result(name = "success", location = "/user/edit.jsp") })
+	public String edit() {
+		String user_id = ServletActionContext.getRequest().getParameter(
+				"user_id");
+
 		this.editUser = userService.get(user_id);
 		System.out.println(user_id);
 		return SUCCESS;
 	}
 
-	@Action(value="saveUser", 
-			results={@Result(name="success", location="/admin/dashboard.jsp")})
-	public String save(){
-		System.out.println("&&&&&&&&&&&&" + saveUser);
+	@Action(value = "updateUser", results = { @Result(name = "success", location = "/user/updateSuccess.jsp") })
+	public String update() {
+		System.out.println("&&&&&&&&&&&&" + updateUser);
 		return SUCCESS;
 	}
-	
-	public User getSaveUser() {
-		return saveUser;
-	}
 
-	public void setSaveUser(User saveUser) {
-		this.saveUser = saveUser;
-	}
 
 	public UserService getUserService() {
 		return userService;
@@ -120,22 +118,15 @@ public class UserAction extends ActionSupport implements  ModelDriven, SessionAw
 		this.session = session;
 	}
 
-	@Resource(name="adminRequired")
+	@Resource(name = "adminRequired")
 	@Override
 	public void setRequiredRoles(RequiredRoles roles) {
-		this.requiredRoles = roles;		
+		this.requiredRoles = roles;
 	}
 
 	@Override
 	public RequiredRoles getRequiredRoles() {
 		return this.requiredRoles;
 	}
-
-	@Override
-	public Object getModel() {
-		// TODO Auto-generated method stub
-		return saveUser;
-	}
-
 
 }
