@@ -64,10 +64,18 @@ Preparable, LoginRequired {
 	@Override
 	public String execute() {
 		System.out.println("show the params : " + params.get("user_id"));
-		if (userService.delete( params.get("user_id")[0]))
-			return "success";
-		else
+		
+		/*try {
+			userService.delete( params.get("user_id")[0]);
+				return "success";
+		} catch (Exception e) {
+			
+			e.printStackTrace();
 			return "error";
+		}*/
+		if(	userService.delete( params.get("user_id")[0]))
+			return "success";
+		else return "error";
 	}
 
 	@Action(value = "userList", results = { @Result(name = "success", location = "/admin/userList.jsp") })

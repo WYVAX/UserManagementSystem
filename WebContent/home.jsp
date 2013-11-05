@@ -18,9 +18,9 @@
 
 	<a href='<s:url action="regPage" namespace="/registration" /> '>
 		Registration page</a>
-
+<div>
 	<s:action name="addresses" namespace="/security" executeResult="true"></s:action>
-
+</div>
 	<s:if test='%{#session.user.hasRole("ADMIN")}'>
 		<a href='<s:url action="adminDashboard" namespace="/security"/>'>Administration</a>
 	</s:if>

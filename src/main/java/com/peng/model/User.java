@@ -30,7 +30,7 @@ public class User implements Serializable {
 		return username;
 	}
 
-	@ManyToMany(mappedBy="users", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="users", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	public Set<Role> getRoles() {
 		return roles;
 	}
