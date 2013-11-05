@@ -1,5 +1,6 @@
 package com.peng.service;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -70,6 +71,12 @@ public class UserService {
 			return true;
 		}
 		else return false;
+	}
+	
+	@Transactional
+	public boolean update(User u) throws SQLException{
+		userDao.update(u);
+		return true;
 	}
 	
 	@Transactional

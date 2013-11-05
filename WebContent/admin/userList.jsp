@@ -6,6 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>User Home page</title>
+<script type="text/javascript">
+function confirmDel(){
+	var ans=window.confirm("Are you sure to delete?");
+	if(ans) return true;
+	else return false;
+}
+</script>
 </head>
 <body>
 	<div>
@@ -27,7 +34,13 @@
 					<td><s:property value="#user.email" /></td>
 					<td><a href='<s:url action="editUser" namespace="/security">
 							<s:param name="user_id" value="#user.username"/>
-						</s:url>'>edit</a> </td>
+						</s:url>'>edit</a> 
+						or 
+						<s:url id="delUser" action="deleteUser" namespace="/security">
+							<s:param name="user_id" value="#user.username"/> 
+						</s:url>
+						<s:a href="%{delUser}" onclick="return confirmDel()">delete</s:a>
+						</td>
 				</tr>
 			</s:iterator>
 		</table>

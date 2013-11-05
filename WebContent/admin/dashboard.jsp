@@ -6,14 +6,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>User Home page</title>
+<script type="text/javascript">
+function confirmDel(){
+	var ans=window.confirm("Are you sure to delete?");
+	if(ans) return true;
+	else return false;
+}
+</script>
 </head>
 <body>
 <h1>Administrator DashBoard</h1>
 <h2>Welcome, <s:property value="%{#session.user.fullName()}"/></h2>
 
 <br>
-Delete User:
-<a href='<s:url action="deleteUser" namespace="/security" />'>delete user </a>
+
 <p> Edit users: 
 <a href='<s:url action="userList" namespace="/security" />'>edit users </a>
 <div>

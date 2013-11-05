@@ -10,7 +10,7 @@
 <body>
 
 User
-<s:property value="updateUser.fullName()"/>
+<s:property value="#editUser.fullName()"/>
 has been updated successfully! 
 <br>
 
