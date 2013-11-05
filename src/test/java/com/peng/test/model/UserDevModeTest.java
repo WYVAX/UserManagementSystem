@@ -58,6 +58,9 @@ public class UserDevModeTest {
 	public void userAddTest() throws Exception{
 		User user = new User();
 		Address addr = new Address();
+		Role role = new Role();
+		role.setRoleName("USER");
+		role.addUser(user);
 		addr.setCountry("US");
 		addr.setRoomNumber(14);
 		addr.setState("MI");
@@ -68,6 +71,7 @@ public class UserDevModeTest {
 		user.setFirstName("Peng");
 		user.setLastName("Zang");
 		user.setPassword("asdf");
+		user.addRole(role);
 		userService.add(user);
 	}
 	

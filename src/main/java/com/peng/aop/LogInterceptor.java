@@ -32,12 +32,12 @@ public class LogInterceptor {
 	
 	
 	@Around("addMethod() || delMethod()")
-	public void around(ProceedingJoinPoint pjp) throws Throwable{
+	public Object around(ProceedingJoinPoint pjp) throws Throwable{
 		System.out.println(" BEFORE \" "+pjp.getSignature()+ " \" ");
 		
-		pjp.proceed();
+		Object o = pjp.proceed();
 	
 		System.out.println("AFTER \" "+pjp.getSignature() + " \" ");
-		
+		return o;
 	}
 }
