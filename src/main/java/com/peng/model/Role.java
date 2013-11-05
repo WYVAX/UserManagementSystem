@@ -59,4 +59,9 @@ public class Role implements Serializable {
 	public void addUser(User u){
 		this.users.add(u);
 	}
+	
+	@Override
+	public String toString(){
+		return this.roleName;
+	}
 }

@@ -130,8 +130,9 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString(){
-		return "User name: " + firstName + " " + 
-				(middleName==null? "": middleName) + " " + lastName + " ,  username: " + username;
+		return "name: " + firstName + " " + 
+				(middleName==null? "": middleName) + " " + lastName + " ,  username: " + username +
+				", Roles: " + this.roles;
 	}
 	
 	public String fullName(){
