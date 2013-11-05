@@ -57,7 +57,7 @@ public class User implements Serializable {
 
 
 
-	@OneToMany(mappedBy="user", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	public Set<Address> getAddress() {
 		return address;
 	}

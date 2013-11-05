@@ -21,6 +21,10 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
+import com.opensymphony.xwork2.conversion.annotations.Conversion;
+import com.opensymphony.xwork2.util.CreateIfNull;
+import com.opensymphony.xwork2.util.Element;
+import com.opensymphony.xwork2.util.KeyProperty;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.peng.model.Address;
 import com.peng.model.User;
@@ -28,13 +32,14 @@ import com.peng.action.security.utils.LoginRequired;
 import com.peng.action.security.utils.RequiredRoles;
 import com.peng.service.UserService;
 
+@Conversion
 @Results(value = {
 		@Result(name = "input", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/home.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp"),
 		@Result(name = "error", location = "/error.jsp") })
 public class UserAction extends ActionSupport implements SessionAware, ParameterAware,
-	Preparable,	LoginRequired {
+Preparable, LoginRequired {
 
 	private UserService userService;
 	private RequiredRoles requiredRoles;
@@ -42,6 +47,9 @@ public class UserAction extends ActionSupport implements SessionAware, Parameter
 	private Set allUsers;
 	private User updateUser;
 	private Address addr;
+	@KeyProperty(value="id")
+	@Element(value= com.peng.model.Address.class)
+	@CreateIfNull(true)
 	private Set<Address> addresses;
 	
 	public Set<Address> getAddresses() {
@@ -85,13 +93,14 @@ public class UserAction extends ActionSupport implements SessionAware, Parameter
 	public String update() {
 		
 		try {
-			User user = (User) session.get("editUser");
-			userService.update(user);
-			for(Address a : user.getAddress()){
+/*			User user = (User) session.get("editUser");
+*/			/*user.setAddress(addresses);*/
+			userService.update(editUser);
+			if(addresses !=null)
+			for(Address a : addresses){
 				System.out.println(" address: " + a);
-			
-				session.remove("editUser");
 			}
+			session.remove("editUser");
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -172,7 +181,10 @@ public class UserAction extends ActionSupport implements SessionAware, Parameter
 
 	@Override
 	public void prepare() throws Exception {
-		this.addresses = ((User)session.get(editUser)).getAddress();		
+		if(session != null && session.get("editUser") != null){
+			this.addresses = ((User)session.get("editUser")).getAddress();
+			this.editUser=((User)session.get("editUser"));
+		}
 	}
 
 

@@ -35,13 +35,13 @@
 			
 			
 				
-			<s:iterator id="iter" value="%{editUser.address}" status="stat" var="add">
-				<s:hidden name="add.id" value="%{#add.id}" ></s:hidden>
-				<s:textfield name="add.streetAddr" value="%{#add.streetAddr}" label="street address 1"></s:textfield>
-				<s:textfield name="add.streetAddr2" value="%{#add.streetAddr2}" label="street address 2"></s:textfield>
-				<s:textfield name="add.state" value="%{#add.state}" label="state"></s:textfield>
-				<s:textfield name="add.country" value="%{#add.country}" label="country"></s:textfield>
-				<s:textfield name="add.roomNumber" value="%{#add.roomNumber}" label="room number"></s:textfield>
+			<s:iterator  value="%{editUser.address}" status="stat" var="add">
+				<s:hidden name="addresses(%{#add.id}).id" value="%{#add.id}" ></s:hidden>
+				<s:textfield name="addresses(%{#add.id}).streetAddr" value="%{#add.streetAddr}" label="street address 1"></s:textfield>
+				<s:textfield name="addresses(%{#add.id}).streetAddr2" value="%{#add.streetAddr2}" label="street address 2"></s:textfield>
+				<s:textfield name="addresses(%{#add.id}).state" value="%{#add.state}" label="state"></s:textfield>
+				<s:textfield name="addresses(%{#add.id}).country" value="%{#add.country}" label="country"></s:textfield>
+				<s:textfield name="addresses(%{#add.id}).roomNumber" value="%{#add.roomNumber}" label="room number"></s:textfield>
 			</s:iterator>
  
  			<s:submit></s:submit>
