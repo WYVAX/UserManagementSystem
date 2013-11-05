@@ -65,14 +65,6 @@ Preparable, LoginRequired {
 	public String execute() {
 		System.out.println("show the params : " + params.get("user_id"));
 		
-		/*try {
-			userService.delete( params.get("user_id")[0]);
-				return "success";
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "error";
-		}*/
 		if(	userService.delete( params.get("user_id")[0]))
 			return "success";
 		else return "error";
