@@ -1,4 +1,5 @@
-@DefaultInterceptorRef("security")   
+@DefaultInterceptorRef("securityStack")
+
 package com.peng.action.security;  
 import org.apache.struts2.convention.annotation.DefaultInterceptorRef;  
 

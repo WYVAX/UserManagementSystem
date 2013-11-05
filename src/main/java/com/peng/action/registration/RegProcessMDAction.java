@@ -61,6 +61,7 @@ public class RegProcessMDAction
 	}
 
 	Address addr = new Address();
+	
 	@Override
 	public Address getModel() {
 		User u = new User();

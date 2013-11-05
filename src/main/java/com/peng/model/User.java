@@ -30,7 +30,7 @@ public class User implements Serializable {
 		return username;
 	}
 
-	@ManyToMany(mappedBy="users", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="users", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -98,9 +98,34 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
+	public Address getAddress(int i){
+		for(Address addr : this.address){
+			if(addr.getId() == i){
+				return addr;
+			}
+		}
+		return null;
+	}
+	
 	public void addAddress(Address a){
 		this.getAddress().add(a);
 		a.setUser(this);
+	}
+	
+	public void removeAddress(Address a){
+		this.address.remove(a);
+	}
+	
+	public boolean updateAddress(Address a){
+		for(Address addr : this.address){
+			if(addr.getId() == a.getId()){
+				removeAddress(a);
+				addAddress(a);
+				return true;
+			}
+			else return false;
+		}
+		return false;
 	}
 	
 	@Override

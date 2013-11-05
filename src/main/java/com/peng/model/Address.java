@@ -37,7 +37,7 @@ public class Address implements Serializable {
 
 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn
 	public User getUser() {
 		return user;
@@ -89,5 +89,9 @@ public class Address implements Serializable {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
+	
+	@Override
+	public String toString(){
+		return streetAddr + streetAddr2 + state + country;
+	}
 }
