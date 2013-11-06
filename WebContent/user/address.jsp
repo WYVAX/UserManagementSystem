@@ -25,7 +25,7 @@
 				<th>Country</th>
 				<th>edit</th>
 			</tr>
-			<s:iterator value="#session.user.address" var="addr" status="stat">
+			<s:iterator value="session_user.address" var="addr" status="stat">
 				<tr>
 					<th>Address <s:property value="#stat.count" /></th>
 					<td><s:property value="#addr.roomNumber" /></td>
@@ -35,14 +35,17 @@
 					<td><s:property value="#addr.country" /></td>
 					<td><a
 						href='<s:url action="address" namespace="/security" >
-									<s:param name="user_id" value="#session.user.username"/>
+									<s:param name="user_id" value="session_user.username"/>
 									<s:param name="address_id" value="#addr.id" />
 								</s:url>'>edit
 					</a></td>
 				</tr>
 			</s:iterator>
 		</table>
-		<a href='<s:url action="address" namespace="/security" ></s:url>'>
+		<a
+			href='<s:url action="address" namespace="/security" >
+					<s:param name="user_id" value="session_user.username"/>
+		</s:url>'>
 			Add an address</a>
 	</div>
 

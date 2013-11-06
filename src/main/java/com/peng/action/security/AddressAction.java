@@ -17,6 +17,7 @@ import org.hibernate.NonUniqueObjectException;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.peng.model.Address;
 import com.peng.model.User;
 import com.peng.action.security.utils.LoginRequired;
@@ -29,14 +30,23 @@ import com.peng.service.UserService;
 		@Result(name = "success", location = "/user/address.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
 public class AddressAction extends ActionSupport implements SessionAware,
-		ParameterAware, LoginRequired {
+		Preparable, ParameterAware, LoginRequired {
 
 	private RequiredRoles requiredRoles;
 	private Map<String, String[]> params;
 	private Address newAddress;
 	private AddressService addressService;
 	private UserService userService;
+	private User session_user;
 	
+	public User getSession_user() {
+		return session_user;
+	}
+
+	public void setSession_user(User session_user) {
+		this.session_user = session_user;
+	}
+
 	public UserService getUserService() {
 		return userService;
 	}
@@ -85,6 +95,7 @@ public class AddressAction extends ActionSupport implements SessionAware,
 
 			System.out.println("################## param.address_id is: " + arr
 					+ " user_id is: " + user_id);
+			
 			if (arr != null && arr.length > 0) {
 				String id = arr[0];
 				this.newAddress = addressService.get(Integer.parseInt(id));
@@ -100,10 +111,14 @@ public class AddressAction extends ActionSupport implements SessionAware,
 			@Result(name = "fail", location = "/error.jsp") })
 	public String addAddress() throws Exception {
 		User user = userService.get(user_id);
+		System.out.println("*********&&&&&&&&&&&&  add address get user: " + user);
 		newAddress.setUser(user);
 		try {
-
-			addressService.update(newAddress);
+			if(newAddress.getId() == 0){
+				addressService.add(newAddress);
+			}
+			else
+				addressService.update(newAddress);
 			return "success";
 		} catch (NonUniqueObjectException e) {
 			e.printStackTrace();
@@ -152,4 +167,11 @@ public class AddressAction extends ActionSupport implements SessionAware,
 		this.params = parameters;
 	}
 
+	@Override
+	public void prepare() throws Exception {
+		String id = (String) session.get("session_user") ; 
+		if(id != null){
+			this.session_user = userService.get(id);
+		}
+	}
 }

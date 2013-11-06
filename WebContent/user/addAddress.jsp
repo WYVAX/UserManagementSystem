@@ -10,8 +10,8 @@
 <body>
 	<div>
 		<s:form action="addAddress" namespace="/security">
-			<s:hidden name="newAddress.id" value="%{newAddress.id}"
-				label="address id" />
+			<s:textfield name="newAddress.id" value="%{newAddress.id}"
+				label="address id" readonly="true"/>
 			<s:textfield name="newAddress.streetAddr"
 				value="%{newAddress.streetAddr}" label="address line 1" />
 			<s:textfield name="newAddress.streetAddr2"
