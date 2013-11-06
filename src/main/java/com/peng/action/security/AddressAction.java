@@ -1,5 +1,6 @@
 package com.peng.action.security;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -10,28 +11,62 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
+import com.peng.model.Address;
 import com.peng.model.User;
 import com.peng.action.security.utils.LoginRequired;
 import com.peng.action.security.utils.RequiredRoles;
+import com.peng.service.AddressService;
 import com.peng.service.UserService;
 
 @Results(value = {
 		@Result(name = "logout", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/user/address.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
-@InterceptorRef("security")
 public class AddressAction extends ActionSupport implements SessionAware,
-		LoginRequired {
+		Preparable, ParameterAware, LoginRequired {
 
-	private UserService userService;
 	private RequiredRoles requiredRoles;
+	private Map<String, String[]> params;
+	private Address newAddress;
+	private AddressService addressService;
+	private UserService userService;
+	private User session_user;
+	
+	public User getSession_user() {
+		return session_user;
+	}
+
+	public void setSession_user(User session_user) {
+		this.session_user = session_user;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+	
+	@Resource(name="userService")
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	private String user_id;
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 
 	@Action(value = "addresses")
-	// , interceptorRefs = @InterceptorRef("security"))
 	@Override
 	public String execute() {
 		System.out.println("************************  required roles: "
@@ -39,13 +74,61 @@ public class AddressAction extends ActionSupport implements SessionAware,
 		return "success";
 	}
 
-	public UserService getUserService() {
-		return userService;
+	public Address getNewAddress() {
+		return newAddress;
 	}
 
-	@Resource
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setNewAddress(Address newAddress) {
+		this.newAddress = newAddress;
+	}
+
+	@Action(value = "address", results = {
+			@Result(name = "success", location = "/user/addAddress.jsp"),
+			@Result(name = "fail", location = "/error.jsp") })
+	public String address() {
+		if (params != null) {
+			String[] arr = params.get("address_id");
+			String[] ui = params.get("user_id");
+
+			if (ui != null)
+				this.user_id = ui[0];
+
+			System.out.println("################## param.address_id is: " + arr
+					+ " user_id is: " + user_id);
+			
+			if (arr != null && arr.length > 0) {
+				String id = arr[0];
+				this.newAddress = addressService.get(Integer.parseInt(id));
+			}
+
+		}
+		return "success";
+
+	}
+
+	@Action(value = "addAddress", results = {
+			@Result(name = "success", location = "/user/addAddress_success.jsp"),
+			@Result(name = "fail", location = "/error.jsp") })
+	public String addAddress() throws Exception {
+		User user = userService.get(user_id);
+		System.out.println("*********&&&&&&&&&&&&  add address get user: " + user);
+		newAddress.setUser(user);
+		try {
+			if(newAddress.getId() == 0){
+				addressService.add(newAddress);
+			}
+			else
+				addressService.update(newAddress);
+			return "success";
+		} catch (NonUniqueObjectException e) {
+			e.printStackTrace();
+			addressService.updateCRUD(newAddress);
+			return "success";
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	private Map session;
@@ -54,21 +137,41 @@ public class AddressAction extends ActionSupport implements SessionAware,
 		return session;
 	}
 
+	public AddressService getAddressService() {
+		return addressService;
+	}
+
+	@Resource(name = "addressService")
+	public void setAddressService(AddressService addressService) {
+		this.addressService = addressService;
+	}
+
 	@Override
 	public void setSession(Map session) {
 		this.session = session;
 	}
-	
-	@Resource(name="userRequired")
+
+	@Resource(name = "userRequired")
 	@Override
 	public void setRequiredRoles(RequiredRoles roles) {
 		this.requiredRoles = roles;
 	}
-	
 
 	@Override
 	public RequiredRoles getRequiredRoles() {
 		return this.requiredRoles;
 	}
 
+	@Override
+	public void setParameters(Map<String, String[]> parameters) {
+		this.params = parameters;
+	}
+
+	@Override
+	public void prepare() throws Exception {
+		String id = (String) session.get("session_user") ; 
+		if(id != null){
+			this.session_user = userService.get(id);
+		}
+	}
 }

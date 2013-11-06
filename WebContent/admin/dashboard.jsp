@@ -16,7 +16,7 @@ function confirmDel(){
 </head>
 <body>
 <h1>Administrator DashBoard</h1>
-<h2>Welcome, <s:property value="%{#session.user.fullName()}"/></h2>
+<h2>Welcome, <s:property value="%{session_user.fullName()}"/></h2>
 
 <br>
 

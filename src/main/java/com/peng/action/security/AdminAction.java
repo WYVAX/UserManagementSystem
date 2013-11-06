@@ -14,6 +14,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.peng.model.User;
 import com.peng.action.security.utils.LoginRequired;
 import com.peng.action.security.utils.RequiredRoles;
@@ -23,12 +24,20 @@ import com.peng.service.UserService;
 		@Result(name = "logout", location = "/registration/login.jsp"),
 		@Result(name = "success", location = "/admin/dashboard.jsp"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
-@InterceptorRef("security")
 public class AdminAction extends ActionSupport implements SessionAware,
-		LoginRequired {
+		Preparable, LoginRequired {
 
 	private UserService userService;
 	private RequiredRoles requiredRoles;
+	private User session_user;
+	
+	public User getSession_user() {
+		return session_user;
+	}
+
+	public void setSession_user(User session_user) {
+		this.session_user = session_user;
+	}
 
 	@Action(value = "adminDashboard")
 	@Override
@@ -69,5 +78,12 @@ public class AdminAction extends ActionSupport implements SessionAware,
 		return this.requiredRoles;
 	}
 
+	@Override
+	public void prepare() throws Exception {
+		String id = (String) session.get("session_user") ; 
+		if(id != null){
+			this.session_user = userService.get(id);
+		}	
+	}
 
 }

@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.peng.model.User;
 import com.peng.service.UserService;
 
@@ -19,16 +20,16 @@ import com.peng.service.UserService;
 		@Result(name="success", location="/home.jsp" )
 		})
 
-public class LoginAction extends ActionSupport implements SessionAware{
+public class LoginAction extends ActionSupport implements Preparable, SessionAware{
 	
 	@Action("login")
 	@Override
 	public String execute(){
 			
 		if(username!=null && password!=null){
-			User u = userService.get(username);
-			if(u!=null && u.getPassword().equals(password)){
-				session.put("user", u);
+			session_user = userService.get(username);
+			if(session_user!=null && session_user.getPassword().equals(password)){
+				session.put("session_user", session_user.getUsername());
 				return SUCCESS;
 			}
 			else return "input";
@@ -40,16 +41,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public String logout(){
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if (!session.isEmpty()) {
-			User user = (User) session.get("user");
-			
-			session.remove("user");
+			session.remove("session_user");
 		}
 		return "input";
 	}
 	
 	@Action("userHome")
 	public String home(){
-		if(session.get("user") != null)
+		if(session.get("session_user") != null)
 			return "success";
 		else return "input";
 	}
@@ -68,7 +67,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String username;
 	private String password;
 	private Map session;
+	private User session_user;
 	
+	public User getSession_user() {
+		return session_user;
+	}
+
+	public void setSession_user(User session_user) {
+		this.session_user = session_user;
+	}
+
 	public Map getSession() {
 		return session;
 	}
@@ -91,6 +99,15 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	@Override
 	public void setSession(Map session) {
 			this.session = session;
+	}
+
+	@Override
+	public void prepare() throws Exception {
+		String id = (String) session.get("session_user") ; 
+		if(id != null){
+			this.session_user = userService.get(id);
+		}	
+
 	}
 
 	
