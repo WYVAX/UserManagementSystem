@@ -24,6 +24,10 @@ public class LogInterceptor {
 		this.sf = sf;
 	}
 
+	@Pointcut("execution(public * com.peng.service.*Service.*(..)) &&" +
+			"@annotation(org.springframework.transaction.annotation.Transactional)")
+	public void serviceMethod(){}
+	
 	@Pointcut("execution(public * com.peng.service.*Service.add(..))")
 	public void addMethod(){}
 	
@@ -31,13 +35,14 @@ public class LogInterceptor {
 	public void delMethod(){}
 	
 	
-	@Around("addMethod() || delMethod()")
+	//@Around("addMethod() || delMethod()")
+	@Around("serviceMethod()")
 	public Object around(ProceedingJoinPoint pjp) throws Throwable{
-		System.out.println(" BEFORE \" "+pjp.getSignature()+ " \" ");
+		System.out.println("BEFORE Service: \" "+pjp.getSignature()+ " \" ");
 		
 		Object o = pjp.proceed();
 	
-		System.out.println("AFTER \" "+pjp.getSignature() + " \" ");
+		System.out.println("AFTER Service: \" "+pjp.getSignature() + " \" ");
 		return o;
 	}
 }
