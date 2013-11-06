@@ -13,11 +13,7 @@
 		Welcome,
 		<s:property value="%{#session.user.fullName()}" />
 	</h2>
-
-	<br> go to registration page:
-
-	<a href='<s:url action="regPage" namespace="/registration" /> '>
-		Registration page</a>
+<h3><font color="green">Your Addresses List: </font></h3>
 <div>
 	<s:action name="addresses" namespace="/security" executeResult="true"></s:action>
 </div>

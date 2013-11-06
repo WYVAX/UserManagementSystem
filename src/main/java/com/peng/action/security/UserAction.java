@@ -47,6 +47,7 @@ Preparable, LoginRequired {
 	private Set allUsers;
 	private User updateUser;
 	private Address addr;
+	
 	@KeyProperty(value="id")
 	@Element(value= com.peng.model.Address.class)
 	@CreateIfNull(true)
