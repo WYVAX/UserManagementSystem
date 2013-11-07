@@ -149,6 +149,19 @@
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-convention-plugin</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.jgeppert.struts2.bootstrap</groupId>
+			<artifactId>struts2-bootstrap-plugin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jgeppert.struts2.jquery</groupId>
+			<artifactId>struts2-jquery-plugin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.19</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -323,6 +336,16 @@
 					org.apache.servicemix.bundles.commons-lang
 				</artifactId>
 				<version>2.4_6</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jgeppert.struts2.bootstrap</groupId>
+				<artifactId>struts2-bootstrap-plugin</artifactId>
+				<version>1.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jgeppert.struts2.jquery</groupId>
+				<artifactId>struts2-jquery-plugin</artifactId>
+				<version>3.6.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

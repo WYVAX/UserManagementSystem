@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sb" uri="/struts-bootstrap-tags"%>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -11,11 +14,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>User Home page</title>
 </head>
 <body>
 	<div>
-		<table border="1">
+	      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
 			<tr>
 				<th>All Addresses</th>
 				<th>Room Number</th>
