@@ -4,8 +4,9 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,13 +38,13 @@ body {
 					</ul>
 
 				</div>
-					<p class="navbar-text navbar-right">
+				<p class="navbar-text pull-right">
 					<a href='<s:url action="logout" namespace="/registration" /> '>Logout</a>
-					</p>
+				</p>
 			</div>
-			
+
 		</div>
-		
+
 	</div>
 
 
@@ -72,12 +73,18 @@ body {
 
 			<!-- Right panel start from here -->
 			<div class="span9">
-
-				<h2>
-					Welcome,
-					<s:property value="%{session_user.fullName()}" />
-				</h2>
-
+				<div class="hello-unit">
+					<h1>
+						Welcome,
+						<s:property value="%{session_user.fullName()}" />
+					</h1>
+					<s:if test='%{session_user.hasRole("ADMIN")}'>
+						<a href='<s:url action="adminDashboard" namespace="/security"/>'  class="btn btn-primary btn-large">Administration</a>
+					</s:if>
+					<s:else>
+					</s:else>
+					
+				</div>
 				<h3>
 					<font color="green">Your Addresses List: </font>
 				</h3>
@@ -85,12 +92,6 @@ body {
 					<s:action name="addresses" namespace="/security"
 						executeResult="true"></s:action>
 				</div>
-				<s:if test='%{session_user.hasRole("ADMIN")}'>
-					<a href='<s:url action="adminDashboard" namespace="/security"/>'>Administration</a>
-				</s:if>
-				<s:else>
-
-				</s:else>
 
 				<a href='<s:url action="logout" namespace="/registration" /> '>Logout</a>
 			</div>
