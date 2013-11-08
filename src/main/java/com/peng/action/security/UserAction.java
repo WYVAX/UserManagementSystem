@@ -114,6 +114,15 @@ public class UserAction extends ActionSupport implements SessionAware,
 		return SUCCESS;
 	}
 
+
+	@Action("userHome")
+	public String home(){
+		if(session.get("session_user") != null)
+			return "success";
+		else return "input";
+	}
+	
+	
 	public UserService getUserService() {
 		return userService;
 	}

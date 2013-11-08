@@ -46,12 +46,6 @@ public class LoginAction extends ActionSupport implements Preparable, SessionAwa
 		return "input";
 	}
 	
-	@Action("userHome")
-	public String home(){
-		if(session.get("session_user") != null)
-			return "success";
-		else return "input";
-	}
 	
 	private UserService userService;
 

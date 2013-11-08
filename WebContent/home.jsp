@@ -21,20 +21,21 @@ body {
 <title>User Home page</title>
 </head>
 <body>
+
+	<!-- navigation bar start here -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 
 				<a class="brand" href="#">My App </a>
 
-
 				<div class="nav-collapse">
 					<ul class="nav">
-						<s:url var="index_url" action="userHome" />
+						<s:url var="index_url" action="userHome" namespace="/security" />
 						<li class="active"><s:a href="%{index_url}">Home</s:a></li>
-						<s:url var="about_url" action="" />
-						<li><s:a href="%{about_url}">About</s:a></li>
-						<li><a href="http://code.google.com/p/struts2-bootstrap/">Project</a></li>
+						<s:url var="admin_url" action="adminDashboard" namespace="/security" />
+						<li><s:a href="%{admin_url}">administration</s:a></li>
+						
 					</ul>
 
 				</div>
@@ -42,15 +43,14 @@ body {
 					<a href='<s:url action="logout" namespace="/registration" /> '>Logout</a>
 				</p>
 			</div>
-
 		</div>
-
 	</div>
 
-
-
+	<!-- content container start here -->
 	<div class="container-fluid">
 		<div class="row-fluid">
+		
+		<!-- Left Side bar start here -->
 			<div class="span3">
 				<div class="well sidebar-nav">
 					<ul class="nav nav-list">
@@ -79,11 +79,12 @@ body {
 						<s:property value="%{session_user.fullName()}" />
 					</h1>
 					<s:if test='%{session_user.hasRole("ADMIN")}'>
-						<a href='<s:url action="adminDashboard" namespace="/security"/>'  class="btn btn-primary btn-large">Administration</a>
+						<a href='<s:url action="adminDashboard" namespace="/security"/>'
+							class="btn btn-primary btn-large">Administration</a>
 					</s:if>
 					<s:else>
 					</s:else>
-					
+
 				</div>
 				<h3>
 					<font color="green">Your Addresses List: </font>
