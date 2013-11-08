@@ -33,7 +33,7 @@
 				<td><s:textfield name="addresses(%{#add.id}).roomNumber" value="%{#add.roomNumber}" label="room number"></s:textfield></td>
 			</s:iterator>
 			</table>
- 			<s:submit></s:submit>
+ 			<s:submit cssClass="btn btn-primary pull-left"></s:submit>
 		</s:form>
 
 	

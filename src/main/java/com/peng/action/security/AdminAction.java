@@ -22,7 +22,7 @@ import com.peng.service.UserService;
 
 @Results(value = {
 		@Result(name = "logout", location = "/registration/login.jsp"),
-		@Result(name = "success", location = "/admin/dashboard.jsp"),
+		@Result(name = "success", location = "/admin/dashboard.tiles", type="tiles"),
 		@Result(name = "securityerror", location = "/securityerror.jsp") })
 public class AdminAction extends ActionSupport implements SessionAware,
 		Preparable, LoginRequired {
