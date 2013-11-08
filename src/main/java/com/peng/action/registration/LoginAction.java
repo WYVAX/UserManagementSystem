@@ -17,7 +17,7 @@ import com.peng.service.UserService;
 
 
 @Results(value = { @Result(name="input", location="/registration/login.jsp"), 
-		@Result(name="success", location="/home.jsp" )
+		@Result(name="success", location="/user/home.tiles", type="tiles" )
 		})
 
 public class LoginAction extends ActionSupport implements Preparable, SessionAware{
@@ -46,12 +46,6 @@ public class LoginAction extends ActionSupport implements Preparable, SessionAwa
 		return "input";
 	}
 	
-	@Action("userHome")
-	public String home(){
-		if(session.get("session_user") != null)
-			return "success";
-		else return "input";
-	}
 	
 	private UserService userService;
 

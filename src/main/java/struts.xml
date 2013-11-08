@@ -13,6 +13,13 @@
 	<include file="com/peng/action/security/security.xml" />
 
 	<package name="default" namespace="/" extends="struts-default">
+
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+
 		<interceptors>
 			<interceptor name="security"
 				class="com.peng.action.interceptor.SecurityInterceptor" />

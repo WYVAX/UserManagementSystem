@@ -13,6 +13,23 @@
 					application, we will not have any other servlets or filters.  Of course, real Struts 2 
 					applications may also have other servlets or filters, but since we are doing only Struts 2
 					stuff in this example, we need only define the Struts 2 filter.  -->
+					
+		
+   <context-param>
+   <param-name>
+      org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+   </param-name>
+   <param-value>
+      /WEB-INF/tiles.xml
+   </param-value>
+   </context-param>
+
+   <listener>
+   <listener-class>
+      org.apache.struts2.tiles.StrutsTilesListener
+   </listener-class>
+   </listener>
+					
 					 
     <filter>
         <filter-name>struts2</filter-name>

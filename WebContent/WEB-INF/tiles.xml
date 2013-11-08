@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/tiles/basicLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sidebar" value="/tiles/sidebar.jsp" />
+		<put-attribute name="content" value="/tiles/content.jsp" />
+		<!-- <put-attribute name="footer" value="/Footer.jsp" /> -->
+	</definition>
+
+	<definition name="/user/home.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/user/_home.jsp" />
+	</definition>
+
+	<definition name="/user/edit.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/user/_edit.jsp" />
+	</definition>
+
+	<definition name="/user/addAddress.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/user/_addAddress.jsp" />
+	</definition>
+
+	<definition name="/user/addAddress_success.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/user/_addAddress_success.jsp" />
+	</definition>
+
+	<definition name="/user/updateSuccess.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/user/_updateSuccess.jsp" />
+	</definition>
+
+	<definition name="/admin/dashboard.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/admin/_dashboard.jsp" />
+	</definition>
+
+	<definition name="/admin/userList.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/admin/_userList.jsp" />
+	</definition>
+	<!-- <definition name="/customer.tiles" extends="baseLayout"> <put-attribute 
+		name="title" value="Customer Form" /> <put-attribute name="body" value="/Customer.jsp" 
+		/> </definition> <definition name="/customer.success.tiles" extends="baseLayout"> 
+		<put-attribute name="title" value="Customer Added" /> <put-attribute name="body" 
+		value="/SuccessCustomer.jsp" /> </definition> -->
+</tiles-definitions>

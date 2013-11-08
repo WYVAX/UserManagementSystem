@@ -9,8 +9,8 @@
 </head>
 <body>
 	<div>
-	Address Update/create successfully! 
-		<table border="1">
+	<h3>Address Update/create successfully!</h3> 
+		<table class="table table-striped table-bordered table-condensed table-hover">
 			<tr>
 				<th> Room Number </th>
 				<th> Address line 1</th>

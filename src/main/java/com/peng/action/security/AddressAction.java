@@ -83,7 +83,7 @@ public class AddressAction extends ActionSupport implements SessionAware,
 	}
 
 	@Action(value = "address", results = {
-			@Result(name = "success", location = "/user/addAddress.jsp"),
+			@Result(name = "success", location = "/user/addAddress.tiles", type="tiles"),
 			@Result(name = "fail", location = "/error.jsp") })
 	public String address() {
 		if (params != null) {
@@ -107,7 +107,7 @@ public class AddressAction extends ActionSupport implements SessionAware,
 	}
 
 	@Action(value = "addAddress", results = {
-			@Result(name = "success", location = "/user/addAddress_success.jsp"),
+			@Result(name = "success", location = "/user/addAddress_success.tiles", type="tiles"),
 			@Result(name = "fail", location = "/error.jsp") })
 	public String addAddress() throws Exception {
 		User user = userService.get(user_id);

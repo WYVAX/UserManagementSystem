@@ -28,7 +28,7 @@ import com.peng.service.UserService;
 @Conversion
 @Results(value = {
 		@Result(name = "input", location = "/registration/login.jsp"),
-		@Result(name = "success", location = "/home.jsp"),
+		@Result(name = "success", location = "/user/home.tiles", type="tiles"),
 		@Result(name = "securityerror", location = "/securityerror.jsp"),
 		@Result(name = "error", location = "/error.jsp") })
 public class UserAction extends ActionSupport implements SessionAware,
@@ -74,13 +74,13 @@ public class UserAction extends ActionSupport implements SessionAware,
 			return "error";
 	}
 
-	@Action(value = "userList", results = { @Result(name = "success", location = "/admin/userList.jsp") })
+	@Action(value = "userList", results = { @Result(name = "success", location = "/admin/userList.tiles", type="tiles") })
 	public String userList() {
 		allUsers = userService.getAll();
 		return SUCCESS;
 	}
 
-	@Action(value = "editUser", results = { @Result(name = "success", location = "/user/edit.jsp") })
+	@Action(value = "editUser", results = { @Result(name = "success", location = "/user/edit.tiles", type="tiles") })
 	public String edit() {
 		String user_id = params.get("user_id")[0];
 
@@ -93,7 +93,7 @@ public class UserAction extends ActionSupport implements SessionAware,
 		return SUCCESS;
 	}
 
-	@Action(value = "updateUser", results = { @Result(name = "success", location = "/user/updateSuccess.jsp") })
+	@Action(value = "updateUser", results = { @Result(name = "success", location = "/user/updateSuccess.tiles", type="tiles") })
 	public String update() {
 
 		try {
@@ -114,6 +114,15 @@ public class UserAction extends ActionSupport implements SessionAware,
 		return SUCCESS;
 	}
 
+
+	@Action(value="userHome", results={@Result(name="success", location="/user/home.tiles", type="tiles")})
+	public String home(){
+		if(session.get("session_user") != null)
+			return "success";
+		else return "input";
+	}
+	
+	
 	public UserService getUserService() {
 		return userService;
 	}
